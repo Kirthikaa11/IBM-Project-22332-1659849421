@@ -1,0 +1,25 @@
+IS_REGULAR = True
+
+def regular():
+    while True:
+        if not GPIO.input(channel) and not IS_REGULAR:            
+            for col in [red, yel, gre]:
+                col.on()
+                sleep(2)
+                col.off()
+                if not IS_REGULAR: break
+        
+def callback(channel):
+    global IS_REGULAR
+    IS_REGULAR = False
+
+    print('Emergency vehicle detected')
+    red.off()
+    yel.off()
+    gre.on()
+    sleep(5)
+    gre.off()
+
+    IS_REGULAR = True
+
+
